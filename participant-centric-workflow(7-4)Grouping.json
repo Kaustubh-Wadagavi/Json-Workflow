@@ -2,7 +2,8 @@
   {
   "name": "dictionary",
   "data": {
-    "fields": [{
+    "fields": [
+      {
         "name": "cpr.registrationDate",
         "caption": "Registration Date",
         "type": "date",
@@ -926,121 +927,119 @@
         "caption": "Frozen Comments",
         "type": "textarea"
       }
-    ]
-  },
-  "layout": [{
-      "title": "Patient Details",
-      "rows": [
-        [
-          "cpr.site",
-          "cpr.externalSubjectId",
-          "cpr.ppid"
-        ],
-        [
-          "cpr.registrationDate",
-          "cpr.participant.birthDate",
-          "calcCpr.birthDate"
-        ],
-        [
-          "cpr.participant.firstName",
-          "cpr.participant.middleName",
-          "cpr.participant.lastName"
-        ],
-        [
-          "cpr.participant.gender"
+    ],
+    "layout": [{
+        "title": "Patient Details",
+        "rows": [
+          [
+            "cpr.site",
+            "cpr.externalSubjectId",
+            "cpr.ppid"
+          ],
+          [
+            "cpr.registrationDate",
+            "cpr.participant.birthDate",
+            "calcCpr.birthDate"
+          ],
+          [
+            "cpr.participant.firstName",
+            "cpr.participant.middleName",
+            "cpr.participant.lastName"
+          ],
+          [
+            "cpr.participant.gender"
 
-        ],
-        [
-          "cpr.participant.vitalStatus",
-          "cpr.participant.deathDate"
-        ],
-        [
-          "cpr.participant.races",
-          "cpr.participant.ethnicities"
-        ],
-        [
-          "cpr.participant.pmis"
-        ],
-        [
-          "cpr.participant.extensionDetail.attrsMap.no_of_alive_family_members",
-          "cpr.participant.extensionDetail.attrsMap.alive_family_members"
-        ],
-        [
-          "cpr.participant.extensionDetail.attrsMap.children",
-          "cpr.participant.extensionDetail.attrsMap.cousine_type"
-        ],
-        [
-          "cpr.participant.extensionDetail.attrsMap.family_photo",
-          "cpr.participant.extensionDetail.attrsMap.entered_data_by"
-        ],
-        [
-          "visit.name",
-          "visit.surgicalPathologyNumber"
-        ],
-        [
-          "visit.clinicalDiagnoses"
-        ],
-        [
-          "visit.site"
-        ],
-        [
-          "visit.visitDate"
-        ],
-        [
-          "visit.eventLabel"
-        ],
-        [
-          "visit.comments"
-        ],
-        [
-          "specimen.type"
-        ],
-        [
-          "specimen.initialQty",
-          "specimen.availableQty"
-        ],
-        [
-          "specimen.comments"
+          ],
+          [
+            "cpr.participant.vitalStatus",
+            "cpr.participant.deathDate"
+          ],
+          [
+            "cpr.participant.races",
+            "cpr.participant.ethnicities"
+          ],
+          [
+            "cpr.participant.pmis"
+          ],
+          [
+            "cpr.participant.extensionDetail.attrsMap.no_of_alive_family_members",
+            "cpr.participant.extensionDetail.attrsMap.alive_family_members"
+          ],
+          [
+            "cpr.participant.extensionDetail.attrsMap.children",
+            "cpr.participant.extensionDetail.attrsMap.cousine_type"
+          ],
+          [
+            "cpr.participant.extensionDetail.attrsMap.family_photo",
+            "cpr.participant.extensionDetail.attrsMap.entered_data_by"
+          ],
+          [
+            "visit.name",
+            "visit.surgicalPathologyNumber"
+          ],
+          [
+            "visit.clinicalDiagnoses"
+          ],
+          [
+            "visit.site"
+          ],
+          [
+            "visit.visitDate"
+          ],
+          [
+            "visit.eventLabel"
+          ],
+          [
+            "visit.comments"
+          ],
+          [
+            "specimen.type"
+          ],
+          [
+            "specimen.initialQty",
+            "specimen.availableQty"
+          ],
+          [
+            "specimen.comments"
+          ]
         ]
-      ]
-    },
-
-    {
-      "title": "Tissue Details",
-      "showIf": {
-        "op": "AND",
-        "rules": [{
-          "field": "specimen.type",
-          "op": "==",
-          "value": "'Fresh Tissue'"
-        }]
       },
-      "rows": [
-        [
-          "specimen.anatomicSite",
-          "specimen.pathology"
-        ],
-        [
-          "specimen.laterality"
+      {
+        "title": "Tissue Details",
+        "showIf": {
+          "op": "AND",
+          "rules": [{
+            "field": "specimen.type",
+            "op": "==",
+            "value": "'Fresh Tissue'"
+          }]
+        },
+        "rows": [
+          [
+            "specimen.anatomicSite",
+            "specimen.pathology"
+          ],
+          [
+            "specimen.laterality"
+          ]
         ]
-      ]
-    },
-    {
-      "title": "Collection & Received Event Details",
-      "rows": [
-        [
-          "specimen.collectionEvent.time",
-          "specimen.receivedEvent.time",
-          "specimen.createdOn"
-        ],
-        [
-          "specimen.receivedEvent.user"
+      },
+      {
+        "title": "Collection & Received Event Details",
+        "rows": [
+          [
+            "specimen.collectionEvent.time",
+            "specimen.receivedEvent.time",
+            "specimen.createdOn"
+          ],
+          [
+            "specimen.receivedEvent.user"
+          ]
         ]
-      ]
-    }
-  ]
+      }
+    ]
+  }
 },
-
 {
   "name": "participant-list-view",
   "data": {
