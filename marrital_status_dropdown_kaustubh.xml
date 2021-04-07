@@ -1,0 +1,37 @@
+<form>
+<view>
+<name>marrital_status_dropdown_kaustubh</name>
+<caption><![CDATA[MaritalStatusDropdown:Kaustubh]]></caption>
+<row>
+<dropDown>
+<name>marital_status</name>
+<udn>marital_status</udn>
+<caption><![CDATA[Marital Status]]></caption>
+<phi>false</phi>
+<mandatory>false</mandatory>
+<toolTip><![CDATA[Marital Status of participant]]></toolTip>
+<showLabel>true</showLabel>
+<showInGrid>false</showInGrid>
+<hidden>false</hidden>
+<options>
+<option>
+<value><![CDATA[Married]]></value>
+</option>
+<option>
+<value><![CDATA[Unmarried]]></value>
+</option>
+<option>
+<value><![CDATA[Bramhachari]]></value>
+</option>
+</options>
+<lazyLoad>false</lazyLoad>
+<width>0</width>
+<minQueryChars>0</minQueryChars>
+</dropDown>
+</row>
+</view>
+<deletedFields>
+</deletedFields>
+<skipRules>
+</skipRules>
+</form>
