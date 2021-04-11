@@ -929,7 +929,6 @@
       }
     ],
     "layout": [{
-        "title": "Patient Details",
         "rows": [
           [
             "cpr.site",
@@ -978,29 +977,83 @@
             "visit.surgicalPathologyNumber"
           ],
           [
-            "visit.clinicalDiagnoses"
-          ],
-          [
-            "visit.site"
-          ],
-          [
+            "visit.site",
             "visit.visitDate"
           ],
           [
+            "visit.missedBy",
+            "visit.missedReason"
+          ],
+          [
+            "visit.clinicalDiagnoses",
+            "visit.status"
+          ],
+          [
+            "visit.clinicalStatus",
             "visit.eventLabel"
           ],
           [
             "visit.comments"
           ],
           [
+            "specimen.label",
             "specimen.type"
+          ],
+          [
+            "specimen.barcode",
+            "specimen.lineage"
           ],
           [
             "specimen.initialQty",
             "specimen.availableQty"
           ],
           [
+            "specimen.status",
+            "specimen.type"
+          ],
+          [
+            "specimen.anatomicSite",
+            "specimen.laterality"
+          ],
+          [
+            "specimen.pathology",
+            "specimen.concentration"
+          ],
+          [
+            "specimen.parentLabel",
+            "specimen.biohazards"
+          ],
+          [
+            "specimen.storageLocation",
+            "specimen.createdOn"
+          ],
+          [
+            "specimen.freezeThawCycles",
             "specimen.comments"
+          ],
+          [
+            "specimen.collectionEvent.time",
+            "specimen.collectionEvent.user"
+          ],
+          [
+            "specimen.collectionEvent.container",
+            "specimen.collectionEvent.procedure"
+          ],
+          [
+            "specimen.receivedEvent.user",
+            "specimen.receivedEvent.time"
+          ],
+          [
+            "specimen.receivedEvent.receivedQuality",
+            "specimen.externalIds"
+          ],
+          [
+            "specimen.events.SpecimenFrozenEvent.time",
+            "specimen.events.SpecimenFrozenEvent.user"
+          ],
+          [
+            "specimen.events.SpecimenFrozenEvent.frozenMethod",
+            "specimen.events.SpecimenFrozenEvent.comments"
           ]
         ]
       },
