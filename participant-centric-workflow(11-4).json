@@ -1273,6 +1273,41 @@
   }
   },
   {
+    "name": "visitsTab",
+    "data": {
+      "occurred": [
+        {
+          "field" : "visit.eventLabel",
+          "name" : "visit.eventLabel",
+          "caption" : "Event Label",
+          "type" : "text",
+          "optional" : false,
+          "width" : "150px"
+        },
+        {
+          "field": "visit.surgicalPathologyNumber",
+          "baseField": "visit.surgicalPathologyNumber",
+          "width": "100px"
+        },
+        {
+          "field": "visit.site",
+          "baseField": "visit.site",
+          "width": "100px"
+        },
+        {
+          "field": "visit.name",
+          "baseField": "visit.name",
+          "width": "100px"
+        },
+        {
+          "field": "visit.visitDate",
+          "baseField": "visit.visitDate",
+          "width": "100px"
+        }
+      ]
+    }
+  },
+  {
     "name": "common",
     "data": {
     "participantHeader": {
