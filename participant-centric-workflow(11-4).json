@@ -1215,14 +1215,6 @@
         "caption": "Type"
       },
       {
-        "expr": "Specimen.tissueSite",
-        "caption": "Anatomic Site"
-      },
-      {
-        "expr": "Specimen.pathologicalStatus",
-        "caption": "Pathology Status"
-      },
-      {
         "expr": "Specimen.availableQty",
         "caption": "Quantity",
         "metainfo": {
@@ -1314,14 +1306,9 @@
       "breadcrumb": "<ul os-breadcrumbs><li><a ui-sref=\"cp-list-view({cpId: cpr.cpId})\">{{cp.shortTitle}}</a></li><li><a ui-sref=\"participant-list({cpId: cpr.cpId})\">Participants</a></li></ul>",
       "leftTitle": "{{cpr.externalSubjectId}} <span ng-if=\"userCtx.hasPhiAccess\"></span>",
       "rightTitle": "<div ng-style=\"!!cpr.participant.pmis[0].mrn && {'font-size': '16px', 'margin-top': '-15px'}\" ng-if=\"userCtx.hasPhiAccess\"><div><b>{{cpr.participant.firstName}} {{cpr.participant.middleName}} {{cpr.participant.lastName}}</b></div><div>{{cpr.participant.pmis[0].mrn}}</div></div>"
-    }
-  }
-  },
-  {
-    "name": "common",
-    "data": {
+    },
     "showSpmnActivity": false,
     "showVisitActivity": false
-    }
   }
+}
 ]
