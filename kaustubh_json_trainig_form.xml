@@ -113,6 +113,51 @@
 <hidden>false</hidden>
 </fileUpload>
 </row>
+<row>
+<numberField>
+<name>duration_to_freeze</name>
+<udn>duration_to_freeze</udn>
+<caption><![CDATA[Duration to Freeze]]></caption>
+<phi>false</phi>
+<mandatory>false</mandatory>
+<showLabel>true</showLabel>
+<showInGrid>false</showInGrid>
+<hidden>false</hidden>
+<width>0</width>
+<defaultValue><![CDATA[]]></defaultValue>
+<noOfDigits>19</noOfDigits>
+</numberField>
+</row>
+<row>
+<numberField>
+<name>age_at_visit_time</name>
+<udn>age_at_visit_time</udn>
+<caption><![CDATA[Age at visit time]]></caption>
+<phi>false</phi>
+<mandatory>false</mandatory>
+<showLabel>true</showLabel>
+<showInGrid>false</showInGrid>
+<hidden>false</hidden>
+<width>0</width>
+<defaultValue><![CDATA[]]></defaultValue>
+<noOfDigits>19</noOfDigits>
+</numberField>
+</row>
+<row>
+<numberField>
+<name>age_at_specimen_creation_time</name>
+<udn>age_at_specimen_creation_time</udn>
+<caption><![CDATA[Age at Specimen Creation Time]]></caption>
+<phi>false</phi>
+<mandatory>false</mandatory>
+<showLabel>true</showLabel>
+<showInGrid>false</showInGrid>
+<hidden>false</hidden>
+<width>0</width>
+<defaultValue><![CDATA[]]></defaultValue>
+<noOfDigits>19</noOfDigits>
+</numberField>
+</row>
 </view>
 <deletedFields>
 <field udn="brother_and_sister"/>

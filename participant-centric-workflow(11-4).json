@@ -964,6 +964,12 @@
         "name": "specimen.events.SpecimenFrozenEvent.comments",
         "caption": "Frozen Comments",
         "type": "textarea"
+      },
+      {
+        "name": "calcSpecimen.extensionDetail.attrsMap.duration_to_freeze",
+        "displayExpr": "(fns.dateDiffInMinutes(specimen.collectionEvent.time,specimen.events.SpecimenFrozenEvent.time))",
+        "caption": "Duration to Freeze",
+        "type": "span"
       }
     ],
     "layout": [{
@@ -1306,9 +1312,44 @@
       "breadcrumb": "<ul os-breadcrumbs><li><a ui-sref=\"cp-list-view({cpId: cpr.cpId})\">{{cp.shortTitle}}</a></li><li><a ui-sref=\"participant-list({cpId: cpr.cpId})\">Participants</a></li></ul>",
       "leftTitle": "{{cpr.externalSubjectId}} <span ng-if=\"userCtx.hasPhiAccess\"></span>",
       "rightTitle": "<div ng-style=\"!!cpr.participant.pmis[0].mrn && {'font-size': '16px', 'margin-top': '-15px'}\" ng-if=\"userCtx.hasPhiAccess\"><div><b>{{cpr.participant.firstName}} {{cpr.participant.middleName}} {{cpr.participant.lastName}}</b></div><div>{{cpr.participant.pmis[0].mrn}}</div></div>"
-    },
+      },
     "showSpmnActivity": false,
     "showVisitActivity": false
+    }
+  },
+  {
+    "name": "specimenTree",
+    "data": {
+      "hideDerivatives": true,
+      "summaryDescTmpl" : "<span><span ng-if=\"!specimen.status || specimen.status == 'Pending'\">{{specimen.reqLabel}} </span><span ng-if=\"!!specimen.label\">{{specimen.label}}</span><span ng-if=\"!!specimen.barcode\">({{specimen.barcode}})</span></span></span>",
+     "fields": [
+       {
+         "name": "specimen",
+         "caption": "Description",
+         "type": "specimen-description",
+         "width": "40%"
+       },
+       {
+         "name": "specimen.barcode",
+         "baseField": "specimen.barcode"
+       },
+       {
+         "name": "specimen.storageLocation",
+         "baseField": "specimen.storageLocation"
+       },
+       {
+         "name" : "calcSpecimen.extensionDetail.attrsMap.duration_to_freeze",
+         "baseField" : "calcSpecimen.extensionDetail.attrsMap.duration_to_freeze"
+       },
+       {
+        "name" : "specimen.initialQty",
+        "baseField" : "specimen.initialQty"
+      },
+      {
+        "name" : "specimen.availableQty",
+        "baseField" : "specimen.availableQty"
+      }
+     ]
+    }
   }
-}
 ]
