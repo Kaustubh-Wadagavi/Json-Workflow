@@ -24,12 +24,10 @@
               "type":"dropdown",
               "optional":true,
               "listSource":{
-                 "apiUrl":"collection-protocols/{{cp.id}}/sites",
-                 "displayProp":"name",
-                 "selectProp":"name",
-                 "queryParams":{
-                    
-                 }
+                 "options":[
+                    "Kaustubh_Site_1",
+                    "Kaustubh_Site_2"
+                 ]
               }
            },
            {
@@ -237,8 +235,8 @@
                  "rules":[
                     {
                        "field":"cpr.participant.extensionDetail.attrsMap.alive_family_members",
-                       "op":"==",
-                       "value":"'Childrens'"
+                       "op":".indexOf('Childrens')",
+                       "value":"> -1"
                     }
                  ]
               },
@@ -246,7 +244,7 @@
            },
            {
               "name":"cpr.participant.extensionDetail.attrsMap.cousine_type",
-              "caption":"Cousine Type",
+              "caption":"Cousin Type",
               "type":"radio",
               "optional":false,
               "options":[
@@ -258,8 +256,8 @@
                  "rules":[
                     {
                        "field":"cpr.participant.extensionDetail.attrsMap.alive_family_members",
-                       "op":"==",
-                       "value":"'Brother and Sister'"
+                       "op":".indexOf('Brother and Sister')",
+                       "value":"> -1"
                     }
                  ]
               },
@@ -328,23 +326,24 @@
            },
            {
               "name":"visit.status",
-              "caption":"Status",
+              "caption":"Clinical Status",
               "type":"dropdown",
-              "optional":true,
+              "optional":false,
+              "showIf":{
+                 "op":"AND",
+                 "rules":[
+                    {
+                       "field":"visit.status",
+                       "op":"!=",
+                       "value":"'Missed Collection'"
+                    }
+                 ]
+              },
               "listSource":{
                  "options":[
-                    {
-                       "value":"Pending"
-                    },
-                    {
-                       "value":"Missed Collection"
-                    },
-                    {
-                       "value":"Complete"
-                    }
-                 ],
-                 "displayProp":"value",
-                 "selectProp":"value"
+                    "Relapse, On-Operation",
+                    "Relapse, Pre-Operative"
+                 ]
               }
            },
            {
@@ -437,23 +436,6 @@
               }
            },
            {
-              "name":"visit.clinicalStatus",
-              "caption":"Clinical Status",
-              "type":"pvs",
-              "attr":"clinical-status",
-              "optional":true,
-              "showIf":{
-                 "op":"AND",
-                 "rules":[
-                    {
-                       "field":"visit.status",
-                       "op":"!=",
-                       "value":"'Missed Collection'"
-                    }
-                 ]
-              }
-           },
-           {
               "name":"visit.extensionDetail.attrsMap.entered_data_by",
               "caption":"Data Verified By",
               "type":"user",
@@ -462,9 +444,9 @@
                  "op":"AND",
                  "rules":[
                     {
-                       "field":"visit.clinicalStatus",
+                       "field":"visit.status",
                        "op":"==",
-                       "value":"'On-Therapy'"
+                       "value":"'Relapse, On-Operation'"
                     }
                  ]
               },
@@ -488,9 +470,9 @@
                  "op":"AND",
                  "rules":[
                     {
-                       "field":"visit.clinicalStatus",
+                       "field":"visit.status",
                        "op":"==",
-                       "value":"'Not Specified'"
+                       "value":"'Relapse, On-Operation'"
                     }
                  ]
               }
@@ -1051,16 +1033,29 @@
               "caption":"Duration between Collection time and Received time"
            },
            {
+              "name":"specimen.extensionDetail.attrsMap.biobank_technician",
+              "caption":"Biobank Technician",
+              "type":"user",
+              "selectProp":"id",
+              "listSource":{
+                 "queryParams":{
+                    "static":{
+                       "excludeType":"CONTACT"
+                    }
+                 }
+              }
+           },
+           {
               "name":"calcSpecimen.extensionDetail.attrsMap.age_at_visit_time",
-              "displayExpr":"fns.dateDiffInSeconds(cpr.participant.birthDate,visit.visitDate)+ ' Seconds'",
+              "displayExpr":"fns.dateDiffInYears(cpr.participant.birthDate,visit.visitDate)+ ' Years'",
               "type":"span",
               "caption":"Age at Visit Time"
            },
            {
-            "name":"calcSpecimen.extensionDetail.attrsMap.age_at_specimen_creation_time",
-            "displayExpr":"fns.dateDiffInSeconds(cpr.participant.birthDate,specimen.collectionEvent.time)+ ' Seconds'",
-            "type":"span",
-            "caption":"Age at Specimen Creation Time"
+              "name":"calcSpecimen.extensionDetail.attrsMap.age_at_specimen_creation_time",
+              "displayExpr":"fns.dateDiffInYears(cpr.participant.birthDate,specimen.collectionEvent.time)+ ' Years'",
+              "type":"span",
+              "caption":"Age at Specimen Creation Time"
            }
         ],
         "layout":[
@@ -1124,7 +1119,6 @@
                     "visit.status"
                  ],
                  [
-                    "visit.clinicalStatus",
                     "visit.eventLabel"
                  ],
                  [
@@ -1191,6 +1185,9 @@
                  [
                     "specimen.events.SpecimenFrozenEvent.frozenMethod",
                     "specimen.events.SpecimenFrozenEvent.comments"
+                 ],
+                 [
+                    "specimen.extensionDetail.attrsMap.biobank_technician"
                  ]
               ]
            },
@@ -1229,7 +1226,19 @@
                  ]
               ]
            }
-        ]
+        ],
+        "onValueChange":{
+           "specimen.extensionDetail.attrsMap.biobank_technician":[
+              "function(opts) {",
+              "  angular.forEach(opts.viewCtx.spmnCtx.aliquots, ",
+              "    function(aliquot) { ",
+              "      var user = opts.fns.get(opts.object, opts.field);",
+              "      opts.fns.set(aliquot, 'extensionDetail.attrsMap.biobank_technician', user);",
+              "    }",
+              "  );",
+              "}"
+           ]
+        }
      }
   },
   {
@@ -1237,6 +1246,147 @@
      "view":null,
      "ctrl":null,
      "data":{
+        "aliquotsCollection":[
+           {
+              "title":"Aliquots",
+              "criteria":{
+                 "op":"AND",
+                 "rules":[
+                    {
+                       "field":"specimen.parent.id",
+                       "op":"exists"
+                    },
+                    {
+                       "field":"specimen.specimenClass",
+                       "op":"==",
+                       "value":"'Tissue'"
+                    }
+                 ]
+              },
+              "enableCofrc":false,
+              "fields":[
+                 {
+                    "name":"specimen.parent.label",
+                    "caption":"Parent Specimen",
+                    "type":"span",
+                    "url":"specimen({specimenId: specimen.parent.id})"
+                 },
+                 {
+                    "name":"specimen.parent.availableQty",
+                    "caption":"Parent Quantity",
+                    "type":"span",
+                    "width":"120px"
+                 },
+                 {
+                    "name":"specimen.type",
+                    "caption":"Type",
+                    "type":"specimen-type",
+                    "specimen":"specimen",
+                    "optional":false,
+                    "width":"185px"
+                 },
+                 {
+                    "name":"specimen.noOfAliquots",
+                    "caption":"Count",
+                    "type":"text",
+                    "pattern":"/^[1-9][0-9]*$/",
+                    "modelOpts":{
+                       "allowInvalid":true
+                    },
+                    "optional":true,
+                    "width":"80px",
+                    "showIf":{
+                       "tabMode":true,
+                       "op":"OR",
+                       "rules":[
+                          {
+                             "field":"viewCtx.inputLabels",
+                             "op":"==",
+                             "value":"false"
+                          }
+                       ]
+                    }
+                 },
+                 {
+                    "name":"specimen.labels",
+                    "caption":"Labels",
+                    "type":"textarea",
+                    "optional":false,
+                    "showIf":{
+                       "tabMode":true,
+                       "op":"OR",
+                       "rules":[
+                          {
+                             "field":"viewCtx.inputLabels",
+                             "op":"==",
+                             "value":"true"
+                          }
+                       ]
+                    },
+                    "copyValueFn":"function(firstRowVal, currentVal) { if (!!currentVal) { return currentVal; } else { return ''; } }"
+                 },
+                 {
+                    "name":"specimen.qtyPerAliquot",
+                    "caption":"Quantity",
+                    "type":"specimen-quantity",
+                    "specimen":"specimen",
+                    "optional":true,
+                    "width":"100px"
+                 },
+                 {
+                    "name":"specimen.createdOn",
+                    "caption":"Created On",
+                    "type":"date",
+                    "optional":true,
+                    "defaultValue":"current_date"
+                 },
+                 {
+                    "name":"specimen.createdBy",
+                    "caption":"Created By",
+                    "type":"user",
+                    "defaultValue":"current_user",
+                    "optional":true,
+                    "listSource":{
+                       "queryParams":{
+                          "static":{
+                             "excludeType":"CONTACT"
+                          }
+                       }
+                    }
+                 },
+                 {
+                    "name":"specimen.extensionDetail.attrsMap.biobank_technician",
+                    "baseField":"specimen.extensionDetail.attrsMap.biobank_technician",
+                    "optional":false
+                 },
+                 {
+                    "name":"specimen.storageLocation",
+                    "caption":"Location",
+                    "type":"storage-position",
+                    "optional":true,
+                    "cpId":"specimen.cpId",
+                    "entity":"specimen",
+                    "width":"240px",
+                    "copyValueFn":"function(firstRowVal, currentVal) { if ((!!currentVal && !!currentVal.reservationId) && (!!firstRowVal && !!firstRowVal.reservationId)) { return currentVal;} else if (firstRowVal) { return { id: '', name: firstRowVal.name, mode: firstRowVal.mode, positionX: '', positionY: '', position: '', reservationId: '' };} else { return {}; }}"
+                 },
+                 {
+                    "name":"specimen.printLabel",
+                    "caption":"Print",
+                    "icon":"fa fa-print",
+                    "type":"toggle-checkbox",
+                    "width":"30px"
+                 },
+                 {
+                    "name":"specimen.closeParent",
+                    "caption":"Close Parent",
+                    "icon":"fa fa-ban",
+                    "type":"toggle-checkbox",
+                    "width":"30px",
+                    "defaultValue":false
+                 }
+              ]
+           }
+        ],
         "participantHeader":{
            "breadcrumb":"<ul os-breadcrumbs><li><a ui-sref=\"cp-list-view({cpId: cpr.cpId})\">{{cp.shortTitle}}</a></li><li><a ui-sref=\"participant-list({cpId: cpr.cpId})\">Participants</a></li></ul>",
            "leftTitle":"{{cpr.externalSubjectId}} <span ng-if=\"userCtx.hasPhiAccess\"></span>",
